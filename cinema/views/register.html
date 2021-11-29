@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Register</title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<nav>
+			<!--Logo-->
+			<a href="/orgin" class="logo">
+				<img src ="C:\Users\35383\Desktop\New folder (2)\views\img\logo.png">
+			</a>
+			
+			<!--menu-->
+			<ul class ="menu">
+				<li> <a href="/orgin"></i>Home</a></li>
+				<li> <a href ="/aboutus"> About Us </a></li>
+				<li> <a href ="/current"> Currently Playing </a></li>
+				
+			</ul>
+			
+			<!--Search-->
+			<div class="search">
+				<input type ="text" placeholder= "Search for Movie name.."/>
+				<!--search icon-->
+				<button type="submit"><i class="fa fa-search"></i></button>
+				
+			</div>
+		</nav>
+		<div class="register">
+			<h1>Register</h1>
+			<div class="links">
+				<a href="/">Login</a>
+				<a href="/register" class="active">Register</a>
+			</div>
+			<form class="ajax-form" action="/register" method="post" autocomplete="off">
+				<label for="username">
+					<i class="fas fa-user"></i>
+				</label>
+				<input type="text" name="username" placeholder="Username" id="username" required>
+				<label for="password">
+					<i class="fas fa-lock"></i>
+				</label>
+				<input type="password" name="password" placeholder="Password" id="password" required>
+				<label for="email">
+					<i class="fas fa-envelope"></i>
+				</label>
+				<input type="email" name="email" placeholder="Email" id="email" required>
+				<div class="msg">{{ msg }}</div>
+				<input type="submit" value="Register">
+			</form>
+		</div>
+	</body>
+</html>
