@@ -8,6 +8,7 @@ var nodemailer = require('nodemailer');
 var uuidv1 = require('uuid/v1');
 var crypto = require('crypto');
 var cookieParser = require('cookie-parser');
+const { response, Router } = require('express');
 
 var secret_key = 'your secret key';
 
@@ -37,8 +38,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(cookieParser());
 
-// Email activation required?
-var account_activation_required = true;
+
 
 
 
@@ -56,6 +56,10 @@ app.get('/current', function(request, response) {
 app.get('/', function(request, response) {
 	response.render('index.html');
 });
+
+
+
+
 
 app.post('/', function(request, response) {
 	// Create variables with the post data
@@ -124,41 +128,8 @@ app.post('/register', function(request, response) {
 				// Username validation, must be numbers and characters
 				response.send('Username must contain only characters and numbers!');
 				response.end();
-			} else if (account_activation_required==true) {
-				// Change the username and passowrd below to your email and pass, the current mail host is set to gmail but you can change that if you want.
-				var transporter = nodemailer.createTransport({
-		            host: 'smtp.gmail.com',
-		            port: 465,
-		            secure: true,
-		            auth: {
-		                user: 'sampannap12',
-		                pass: '9803121366'
-		            }
-		        });
-				// Generate a random unique ID
-				var activation_code = uuidv1();
-				// Change the below domain to your domain
-				var activate_link = 'http://localhost:3000/activate/' + email + '/' + activation_code;
-				// Change the below mail options
-		        var mailOptions = {
-		            from: '"Your Name / Business name" <xxxxxx@gmail.com>',
-		            to: email,
-		            subject: 'Account Activation Required',
-		            text: 'Please click the following link to activate your account: ' + activate_link,
-		            html: '<p>Please click the following link to activate your account: <a href="' + activate_link + '">' + activate_link + '</a></p>'
-		        };
-				// Insert account with activation code
-				connection.query('INSERT INTO accounts VALUES (NULL, ?, ?, ?, ?, "")', [username, hashed_password, email, activation_code], function(error, results, fields) {
-					transporter.sendMail(mailOptions, function(error, info) {
-			            if (error) {
-			                return console.log(error);
-			            }
-			            console.log('Message %s sent: %s', info.messageId, info.response);
-			        });
-					response.send('You have successfully registered!');
-					response.end();
-				});
-			} else {
+			} 
+			 else {
 				// Insert account with no activation code
 				connection.query('INSERT INTO accounts VALUES (NULL, ?, ?, ?, "", "")', [username, hashed_password, email], function(error, results, fields) {
 					response.send('You have successfully registered!');
@@ -173,19 +144,7 @@ app.post('/register', function(request, response) {
 	}
 });
 
-app.get('/rows', function (req, res) {
-	connection.connect();  
-  
-	connection.query('SELECT * FROM accounts', function(err, rows, fields)   
-	{  
-		connection.end();
-  
-		if (err) throw err;  
-  
-		res.json(rows); 
-  
-	});
-  });
+
 
 app.get('/home', function(request, response) {
 	// Check if user is logged in
@@ -221,6 +180,9 @@ app.get('/home', function(request, response) {
 	}
 });
 
+
+
+
 app.get('/admin', function(request, response) {
 	// Check if user is logged in
 	if (request.session.loggedin) {
@@ -233,7 +195,7 @@ app.get('/admin', function(request, response) {
 				// remember me cookie matches, keep the user loggedin and update session variables
 				request.session.loggedin = true;
 				request.session.username = results[0].username;
-				response.render('admin.html', { username: results[0].username });
+				response.render('admin.html', { account: results[0] });
 			} else {
 				response.redirect('/');
 			}
@@ -243,6 +205,27 @@ app.get('/admin', function(request, response) {
 		response.redirect('/');
 	}
 }); 
+
+/* GET moviedetails page. */
+app.get('/moviedetails', function(request, response) {
+	response.render('moviedetails.html');
+});
+
+
+
+app.get('/moviedetails', function(request, response) {
+	// Check if user is logged in
+	if (request.session.loggedin) {
+		// Get all the users account details so we can display them on the profile page
+		connection.query('SELECT * FROM accounts WHERE username = ?', [request.session.username], function(error, results, fields) {
+			// Render profile page
+			response.render('moviedetails.html', { account: results[0] });
+		});
+	} else {
+		// Redirect to login page
+		response.redirect('/');
+	}
+});
 
 app.get('/profile', function(request, response) {
 	// Check if user is logged in

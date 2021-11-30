@@ -1,36 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Register</title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script src="script.js"></script>
+	</head>
+	<body>
+        
+ 
+		<nav>
+			<!--Logo-->
+			<a href="/orgin" class="logo">
+				<img src ="logo.png">
+			</a>
+			
+			<!--menu-->
+			<ul class ="menu">
+				<li> <a href="/orgin"></i>Home</a></li>
+			<li> <a href ="/aboutus"> About Us </a></li>
+			
+			<li><a href="/home">Profile Home</a></li>
+			<li><a href="/profile">Profile Details</a></li>
+			<li><a href="/logout"></i>Logout</a></li>
+				
+			</ul>
+			
+			<!--Search-->
+			<div class="search">
+				<input type ="text" placeholder= "Search for Movie name.."/>
+				<!--search icon-->
+				<button type="submit"><i class="fa fa-search"></i></button>
+				
+			</div>
+		</nav>
 
+        <h2> Welcome Back </h2>
+        <p>Welcome back, {{ account.username }}!</p>
 
-{% extends 'layout.html' %}
-
-{% block title %}Profile{% endblock %}
-
-{% block content %}
-<h2>Home Page</h2>
-<p>Welcome back, {{ account.username }}!</p>
-
-<h2>Profile Page</h2>
-<div>
-    <p>Your account details are below:</p>
-    <table>
-        <tr>
-            <td>Username:</td>
-            <td>{{ account.username }}</td>
-        </tr>
-        <tr>
-           
-            <td>Email:</td>
-            <td>{{ account.email }}</td>
-        </tr>
-    </table>
-    
-</div>
-
-<h2>Admin</h2>
-
-
-<h2>Details about all the user</h2>
-
-    
-</div>
-
-{% endblock %}
+		<div class="register">
+			<h1>User Details</h1>
+			<div class="links">
+				<a href="/admin" class="active">User Details</a>
+				
+			</div>
+			
+			</form>
+		</div>
+        
+	</body>
+</html>
