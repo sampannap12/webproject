@@ -102,6 +102,7 @@ app.get('/register', function(request, response) {
 });
 
 
+
 app.post('/register', function(request, response) {
 	// Create variables and set to the post data
 	var username = request.body.username;
@@ -172,27 +173,36 @@ app.post('/register', function(request, response) {
 	}
 });
 
-app.get('/activate/:email/:code', function(request, response) {
-	// Check if the email and activation code match in the database
-	connection.query('SELECT * FROM accounts WHERE email = ? AND activation_code = ?', [request.params.email, request.params.code], function(error, results, fields) {
-		if (results.length > 0) {
-			// Email and activation exist, update the activation code to "activated"
-			connection.query('UPDATE accounts SET activation_code = "activated" WHERE email = ? AND activation_code = ?', [request.params.email, request.params.code], function(error, results, fields) {
-				response.send('Your account has been activated!');
-				response.end();
-			});
-		} else {
-			response.send('Incorrect email/activation code!');
-			response.end();
-		}
+app.get('/rows', function (req, res) {
+	connection.connect();  
+  
+	connection.query('SELECT * FROM accounts', function(err, rows, fields)   
+	{  
+		connection.end();
+  
+		if (err) throw err;  
+  
+		res.json(rows); 
+  
 	});
-});
+  });
 
 app.get('/home', function(request, response) {
 	// Check if user is logged in
 	if (request.session.loggedin) {
 		// Render home page
-		response.render('home.html', { username: request.session.username });
+		connection.query('SELECT * FROM accounts WHERE username = ?', [request.session.username], function(error, results, fields) {
+			// Render profile page
+			if ( request.session.username == "admin")
+			{
+			response.render('admin.html', { account: results[0] });
+			}
+			else 
+			{
+				response.render('home.html', { account: results[0] });
+			}
+		});
+		
 	} else if (request.cookies.rememberme) {
 		// if the remember me cookie exists check if an account has the same value in the database
 		connection.query('SELECT * FROM accounts WHERE rememberme = ?', [request.cookies.rememberme], function(error, results, fields) {
@@ -200,7 +210,7 @@ app.get('/home', function(request, response) {
 				// remember me cookie matches, keep the user loggedin and update session variables
 				request.session.loggedin = true;
 				request.session.username = results[0].username;
-				response.render('home.html', { username: results[0].username });
+				response.render('home.html', { account: results[0] });
 			} else {
 				response.redirect('/');
 			}
@@ -210,6 +220,29 @@ app.get('/home', function(request, response) {
 		response.redirect('/');
 	}
 });
+
+app.get('/admin', function(request, response) {
+	// Check if user is logged in
+	if (request.session.loggedin) {
+		// Render admin page
+		response.render('admin.html', { username: request.session.username });
+	} else if (request.cookies.rememberme) {
+		// if the remember me cookie exists check if an account has the same value in the database
+		connection.query('SELECT * FROM accounts WHERE rememberme = ?', [request.cookies.rememberme], function(error, results, fields) {
+			if (results.length > 0) {
+				// remember me cookie matches, keep the user loggedin and update session variables
+				request.session.loggedin = true;
+				request.session.username = results[0].username;
+				response.render('admin.html', { username: results[0].username });
+			} else {
+				response.redirect('/');
+			}
+		});
+	} else {
+		// Redirect to login page
+		response.redirect('/');
+	}
+}); 
 
 app.get('/profile', function(request, response) {
 	// Check if user is logged in
