@@ -22,4 +22,6 @@ CREATE TABLE IF NOT EXISTS `Movies` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO `accounts` (`id`, `username`, `password`, `email`, `activation_code`, `rememberme`) VALUES (1, 'test', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'test@testexample23.com', '', '');
-INSERT INTO `movies` (`movieid`, `moviename`, `directorname`, `hall`, `price`, `movieimg`) VALUES (1, 'dune', 'david', 'HallB', '15', LOAD_FILE('C:\Users\35383\Desktop\New folder (2)\views\img'));
+INSERT INTO `movies` (`movieid`, `moviename`, `directorname`, `hall`, `price`, `movieimg`) VALUES (1, 'Baby Boss', 'Tom McGrath', 'Hall B', '10', LOAD_FILE('Babyboss.jpg'));
+INSERT INTO `movies` (`movieid`, `moviename`, `directorname`, `hall`, `price`, `movieimg`) VALUES (2, 'DUNE', 'Denis Villeneuve', 'Hall A', '15', LOAD_FILE('Dune.jpg'));
+INSERT INTO `movies` (`movieid`, `moviename`, `directorname`, `hall`, `price`, `movieimg`) VALUES (3, 'The French Dispatch', ' Wes Anderson', 'Hall B', '10', LOAD_FILE('French.jpg'));

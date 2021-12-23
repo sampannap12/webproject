@@ -1,65 +1,65 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Login</title>
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-		<script src="script.js"></script>
-		<!--using font awesom -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	</head>
-	<body>
-		<nav>
-			<!--Logo-->
-			<a href="/orgin" class="logo">
-				<img src ="logo.png">
-			</a>
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="utf-8">
+			<title>Login</title>
+			<link rel="stylesheet" href="style.css">
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+			<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+			<script src="script.js"></script>
+			<!--using font awesom -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		</head>
+		<body>
+			<nav>
+				<!--Logo-->
+				<a href="/orgin" class="logo">
+					<img src ="logo.png">
+				</a>
+				
+				<!--menu-->
+				<ul class ="menu">
+					<li> <a href="/orgin"></i>Home</a></li>
+					
+					
+					
+				</ul>
+				
+				<!--Search-->
+				<div class="search">
+					<input type ="text" placeholder= "Search for Movie name.."/>
+					<!--search icon-->
+					<button type="submit"><i class="fa fa-search"></i></button>
+					
+				</div>
+			</nav>
 			
-			<!--menu-->
-			<ul class ="menu">
-				<li> <a href="/orgin"></i>Home</a></li>
-				<li> <a href ="/aboutus"> About Us </a></li>
-				
-				
-			</ul>
-			
-			<!--Search-->
-			<div class="search">
-				<input type ="text" placeholder= "Search for Movie name.."/>
-				<!--search icon-->
-				<button type="submit"><i class="fa fa-search"></i></button>
-				
+			<div class="login">
+				<h1>Login</h1>
+				<div class="links">
+					<a href="/" class="active">Login</a>
+					<a href="/register">Register</a>
+				</div>
+				<form class="ajax-form" action="/" method="post">
+					<label for="username">
+						<i class="fas fa-user"></i>
+					</label>
+					<input type="text" name="username" placeholder="Username" id="username" required>
+					<label for="password">
+						<i class="fas fa-lock"></i>
+					</label>
+					<input type="password" name="password" placeholder="Password" id="password" required>
+					<label id="rememberme">
+						<input type="checkbox" name="rememberme">Remember me
+					</label>
+					<div class="msg">{{ msg }}</div>
+					<input type="submit" value="Login">
+				</form>
 			</div>
-		</nav>
-		
-		<div class="login">
-			<h1>Login</h1>
-			<div class="links">
-				<a href="/" class="active">Login</a>
-				<a href="/register">Register</a>
-			</div>
-			<form class="ajax-form" action="/" method="post">
-				<label for="username">
-					<i class="fas fa-user"></i>
-				</label>
-				<input type="text" name="username" placeholder="Username" id="username" required>
-				<label for="password">
-					<i class="fas fa-lock"></i>
-				</label>
-				<input type="password" name="password" placeholder="Password" id="password" required>
-				<label id="rememberme">
-					<input type="checkbox" name="rememberme">Remember me
-				</label>
-				<div class="msg">{{ msg }}</div>
-				<input type="submit" value="Login">
-			</form>
-		</div>
-		<!--Footer -->
+			<!--Footer -->
 
-	</body>
-</html>
+		</body>
+	</html>
 
 
 
