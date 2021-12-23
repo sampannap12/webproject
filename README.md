@@ -4,5 +4,5 @@ Some of the points
 - Login system enabled.
 - SSh keygen 
 - session used 
--Create, Update and Read is enabled.
-Nothing to fancy.
+- Create, Update and Read is enabled.
+- Nothing to fancy.
